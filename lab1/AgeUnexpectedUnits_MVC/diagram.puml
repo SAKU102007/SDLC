@@ -1,0 +1,33 @@
+@startuml
+class AgeModel {
+  - DateTime? _birthDate
+  + event StateChanged
+  + DateTime? BirthDate
+  + AgeResult? CurrentResult
+  + SetBirthDate(DateTime)
+  + CalculateCurrent()
+}
+
+class AgeController {
+  - AgeModel _model
+  - MainForm _view
+  + AgeController(AgeModel, MainForm)
+}
+
+class MainForm {
+  + event InputRequested
+  + SetResult(DateTime, AgeResult)
+  + ClearResult()
+}
+
+class DateInputForm {
+  + event InputRequested
+  + string DateText
+  + SetDateText(string)
+}
+
+AgeController --> AgeModel
+AgeController --> MainForm
+MainForm --> DateInputForm
+AgeModel ..> AgeController : StateChanged
+@enduml
